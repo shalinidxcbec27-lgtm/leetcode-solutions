@@ -1,0 +1,30 @@
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        int n = nums.length;
+        HashSet<Integer> set = new HashSet<>();
+        int arr[] = new int[n];
+        int ans =0;
+
+        if(n == 1){
+            if(nums[0] == 1) return nums[0]+1;
+            else return 1;
+        }
+
+        for(int i = 1 ;i<=n ;i++){
+            arr[i-1] = i;
+            System.out.println(arr[i-1]);
+        }
+
+        for(int ele : nums){
+            if(ele > 0) set.add(ele);
+        }
+
+        for(int ele : arr){
+            if(!set.contains(ele)){
+                ans = ele;
+                return ans;
+            }
+        }
+        return n+1;
+    }
+}
