@@ -1,0 +1,33 @@
+function helper(ind, arr, target, ans, tempArray) {
+    if (target === 0) {
+        ans.push([...tempArray]);
+        return;
+    }
+
+    const n = arr.length;
+    if (target < 0 || ind >= n) {
+        return;
+    }
+
+    tempArray.push(arr[ind]);
+    helper(ind + 1, arr, target - arr[ind], ans, tempArray);
+
+    tempArray.pop();
+
+    // skip duplicates
+    let tempIndex = ind + 1;
+    while (tempIndex < n && arr[tempIndex] === arr[ind]) {
+        tempIndex++;
+    }
+
+    helper(tempIndex, arr, target, ans, tempArray);
+}
+
+
+var combinationSum2 = function (candidates, target) {
+    let ans = [];
+    let currTempArray = [];
+    candidates.sort((a, b) => a - b)
+    helper(0, candidates, target, ans, currTempArray);
+    return ans;
+};
