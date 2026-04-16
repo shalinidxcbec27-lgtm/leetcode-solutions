@@ -1,0 +1,35 @@
+class Solution {
+private:
+    TreeNode* first = nullptr;
+    TreeNode* second = nullptr;
+    TreeNode* prev = nullptr; 
+
+public:
+    void inorder(TreeNode* root) {
+        if (!root) return;
+
+        inorder(root->left);
+
+      
+        if (prev != nullptr && root->val < prev->val) {
+            if (first == nullptr) {
+                first = prev;
+            }
+            second = root;
+        }
+        prev = root; 
+
+        inorder(root->right);
+    }
+
+    void recoverTree(TreeNode* root) {
+        inorder(root);
+        
+        // Final swap of values
+        if (first && second) {
+            int temp = first->val;
+            first->val = second->val;
+            second->val = temp;
+        }
+    }
+};
